@@ -13,7 +13,7 @@ def get_disk_usage(path = "C:/"):
 
     disk = DiskInfo(
         percent = disk_info.percent,
-        gb = disk_info.total / (1024**3)
+        gb = round(disk_info.total / (1024**3),1)
     )
     return disk
 
@@ -21,19 +21,19 @@ def get_memory_usage():
     ram_info = psutil.virtual_memory()
     ram = RamInfo(
         percent = ram_info.percent,
-        gb = ram_info.total / (1024**3)
+        gb = round(ram_info.total / (1024**3),1)
     )
     return ram
 
 def print_metrics(cpu_per, mem, disk_mem, gpu, time):
-    print(f"Current Time: {time}")
+    print(f"\nCurrent Time: {time}")
     print(f"CPU Usage: {cpu_per}%")
-    print(f"Ram Usage: {mem.percent}")
-    print(f"Ram GB: {round(mem.gb, 1)}")
-    print(f"Disk Usage: {disk_mem.percent}")
-    print(f"Disk GB: {round(disk_mem.gb, 1)}")
-    print(f"GPU Usage: {gpu.percent}")
-    print(f"GPU Temp: {gpu.temp} \n")
+    print(f"Ram Usage: {mem.percent}%")
+    print(f"Ram GB: {round(mem.gb, 1)}gb")
+    print(f"Disk Usage: {disk_mem.percent}%")
+    print(f"Disk GB: {round(disk_mem.gb, 1)}gb")
+    print(f"GPU Usage: {gpu.percent}%")
+    print(f"GPU Temp: {gpu.temp}c")
      
 
 

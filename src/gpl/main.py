@@ -1,11 +1,20 @@
 from metrics import get_cpu_usage, get_disk_usage, get_memory_usage, print_metrics
 from models import Snapshot, GPUInfo
+import storage
 import time
 from datetime import datetime
+import csv
+
+filepath = "session.csv"
+needs_header = storage.needs_header(filepath)
+file, writer = storage.open_csv_writer(filepath)
+
+if needs_header:
+    writer.writerow(storage.header)
 
 while True:
     try:
-        timestamp = datetime.now().strftime("%H:%M:%S")
+        timestamp = datetime.now().strftime("%H:%M:%S") 
         cpu_per = get_cpu_usage()
         ram_info = get_memory_usage()
         disk_info = get_disk_usage('C:/')
@@ -17,9 +26,12 @@ while True:
             disk = disk_info,
             gpu = gpu_info
             )
+        snapshot_row = storage.snapshot_to_row(snapshot)
+        writer.writerow(snapshot_row)
         print_metrics(snapshot.cpu_percent, snapshot.ram, snapshot.disk, snapshot.gpu, snapshot.timestamp)
         time.sleep(1)
     except KeyboardInterrupt as keyInterrupt:
+        file.close()
         print("Ending program")
         break
 
