@@ -1,0 +1,2 @@
+Game-closes-mid-session detection — you already reasoned through the intent (pause/stop), just needs implementation
+GPU diagnostics — still pending, needs you to actually run the three pyadl checks from way back at the start
