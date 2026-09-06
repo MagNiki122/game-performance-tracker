@@ -3,7 +3,6 @@ def snapshot_to_row(snapshot):
     return [snapshot.timestamp, snapshot.cpu_percent, snapshot.ram.percent, snapshot.ram.gb,
             snapshot.disk.percent, snapshot.disk.gb, snapshot.gpu.percent, snapshot.gpu.temp]
 
-
 def get_connection(db_path):
     connection = sqlite3.connect(db_path)
     return connection

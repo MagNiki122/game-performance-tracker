@@ -1,6 +1,16 @@
 import psutil
 import time
-KNOWN_GAMES = ["notepad.exe"]
+import json
+import os
+
+KNOWN_GAMES = []
+base_dir = os.path.dirname(os.path.abspath(__file__))
+game_dir = os.path.join(base_dir, "games.json")
+
+with open(game_dir, "r", encoding = "utf-8") as file:
+    data = json.load(file)
+
+KNOWN_GAMES = data["applications"]
 
 def find_running_game(known_games):
     lower_case = [item.lower() for item in known_games]
